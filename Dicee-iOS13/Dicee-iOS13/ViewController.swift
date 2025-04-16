@@ -13,17 +13,10 @@ class ViewController: UIViewController {
     //IBOutlet allows me to reference a UI element
     @IBOutlet weak var diceImageView1: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
-    var listOfDice =  [#imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix")]
-    var leftDiceNumber = 0;
+    let listOfDice =  [#imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix")]
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     @IBAction func rollButtonPressed(_ sender: UIButton) {
-        print("dice: \(leftDiceNumber)")
-        diceImageView1.image = listOfDice[leftDiceNumber]
-        diceImageView2.image = listOfDice[5 - leftDiceNumber]
-        leftDiceNumber = (leftDiceNumber + 1) % 6
+        diceImageView1.image = listOfDice[Int.random(in: 0...5)]
+        diceImageView2.image = listOfDice.randomElement()
     }
 }
