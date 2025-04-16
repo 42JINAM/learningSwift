@@ -9,20 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     //IBOutlet allows me to reference a UI element
     @IBOutlet weak var diceImageView1: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
+    var listOfDice =  [#imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix")]
+    var leftDiceNumber = 0;
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        diceImageView1.image = #imageLiteral(resourceName: "DiceSix")
-        diceImageView2.image = #imageLiteral(resourceName: "DiceTwo")
     }
-
+    
     @IBAction func rollButtonPressed(_ sender: UIButton) {
-        diceImageView1.image = UIImage(imageLiteralResourceName: "DiceFour")
-        diceImageView2.image = UIImage(imageLiteralResourceName: "DiceFour")
+        print("dice: \(leftDiceNumber)")
+        diceImageView1.image = listOfDice[leftDiceNumber]
+        diceImageView2.image = listOfDice[5 - leftDiceNumber]
+        leftDiceNumber = (leftDiceNumber + 1) % 6
     }
 }
-
