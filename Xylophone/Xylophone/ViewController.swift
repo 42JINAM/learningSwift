@@ -11,7 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    var player: AVAudioPlayer!
+    var player: AVAudioPlayer!t
     let generator = UIImpactFeedbackGenerator(style: .medium)
 
     override func viewDidLoad() {
