@@ -1,6 +1,7 @@
 
-let dragon = Dragon()
+let skeleton1 = Enemy(health: 100, attackStrength: 10)
+let skeleton2 = skeleton1
 
-dragon.talk(speech: "My teeth ar swords!")
-dragon.move()
-dragon.attack()
+skeleton1.takeDamage(amount: 10)
+
+print(skeleton2.health)
