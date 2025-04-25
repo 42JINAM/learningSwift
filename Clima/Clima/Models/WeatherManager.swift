@@ -11,7 +11,7 @@ import Foundation
 struct WeatherManager {
     var weatherAPI: WeatherAPI = WeatherAPI()
     
-    mutating func fetchWeather(_ location: String) {
+    func fetchWeather(_ location: String) {
         let option = "&units=metric"
         print(weatherAPI.getUrl(city: location, option: option))
 
