@@ -13,7 +13,28 @@ struct WeatherManager {
     
     func fetchWeather(_ location: String) {
         let option = "&units=metric"
-        print(weatherAPI.getUrl(city: location, option: option))
+        performRequest(urlString: weatherAPI.getUrl(city: location, option: option))
 
+    }
+    
+    func performRequest(urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url, completionHandler: handle(data:response:error:))
+            
+            task.resume()
+            
+        }
+    }
+    
+    func handle(data: Data?, response: URLResponse?, error: Error?) -> Void {
+        if error != nil {
+            print(error!)
+            return
+        }
+        if let safeData = data {
+            let dataString = String(data: safeData, encoding: .utf8)
+            print(dataString)
+        }
     }
 }
