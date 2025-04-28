@@ -22,6 +22,10 @@ struct WeatherManager {
         performRequest(with: weatherAPI.getUrl(city: location, option: option))
         
     }
+    func fetchWeather(lat: String, lon: String) {
+        let option = "&units=metric"
+        performRequest(with: weatherAPI.getUrl(lat: lat, lon: lon, option: option))
+    }
     
     func performRequest(with urlString: String) {
         if let url = URL(string: urlString) {
