@@ -11,14 +11,14 @@ import Foundation
 struct WeatherAPI {
     let wetherURL = "https://api.openweathermap.org/data/2.5/weather?"
     
-    func getUrlByCity(city: String, option: String) -> String{
+    func getUrl(city: String, option: String) -> String{
         let appId = "appid=\(openWeatherApi)"
         let city = "&q=\(city)"
         let option = option
         let url = wetherURL + appId + city + option
         return (url)
     }
-    func getUrlByCity(lat: String,lon:String, option: String) -> String{
+    func getUrl(lat: String,lon:String, option: String) -> String{
         let appId = "appid=\(openWeatherApi)"
         let city = "&lat=\(lat)&lon=\(lon)"
         let option = option
