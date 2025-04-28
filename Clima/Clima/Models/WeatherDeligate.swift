@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+protocol WeatherDeligate {
+    let deligate: WeatherViewController?
+    
+    func didUpdateWeather()
+}
