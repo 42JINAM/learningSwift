@@ -37,7 +37,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ph1-wX-D3a"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="43"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="45"/>
                                 <color key="textColor" name="BrandBlue"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -373,7 +373,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Ghe-iQ-uTN"/>
+        <segue reference="1EA-Wf-jYz"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
