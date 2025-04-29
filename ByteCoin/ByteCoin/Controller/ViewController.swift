@@ -40,6 +40,19 @@ extension ViewController: UIPickerViewDelegate {
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let selectedCurrency = coinManager.currencyArray[row]
+        print (selectedCurrency)
         coinManager.getCoinPrice(for: selectedCurrency)
+    }
+}
+
+extension ViewController: CoinManagerDeligate {
+    func didUpdateCoin(_ coinManager: CoinManager, coin: CoinData) {
+        DispatchQueue.main.async {
+            self.bitcoinLabel.text = String(format: "%.1f", coin.rate)
+        }
+    }
+    
+    func didFailWithError(error: any Error) {
+        print(error.localizedDescription)
     }
 }
