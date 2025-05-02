@@ -20,6 +20,7 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        messageTextfield.delegate = self
         navigationItem.hidesBackButton = true
         title = K.appName
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
@@ -51,7 +52,7 @@ class ChatViewController: UIViewController {
         }
     }
     
-    @IBAction func sendPressed(_ sender: UIButton) {
+    func sendMessage() {
         if let messageBody = messageTextfield.text, let sender = Auth.auth().currentUser?.email {
             db.collection(K.FStore.collectionName).addDocument(data: [K.FStore.senderField: sender,
                                                                       K.FStore.bodyField: messageBody,
@@ -63,7 +64,12 @@ class ChatViewController: UIViewController {
                 }
             }
         }
-        
+        view.endEditing(true)
+        messageTextfield.text = ""
+    }
+    
+    @IBAction func sendPressed(_ sender: UIButton) {
+        sendMessage()
     }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
@@ -86,5 +92,12 @@ extension ChatViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
         cell.label.text = messages[indexPath.row].body
         return cell
+    }
+}
+
+extension ChatViewController: UITextFieldDelegate {
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        sendMessage()
+        return true
     }
 }
