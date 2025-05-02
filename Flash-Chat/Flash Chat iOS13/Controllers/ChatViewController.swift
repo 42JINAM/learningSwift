@@ -24,17 +24,17 @@ class ChatViewController: UIViewController {
         title = K.appName
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
         loadMessages()
-
+        
     }
     
     func loadMessages() {
-        messages = []
-        db.collection(K.FStore.collectionName).getDocuments{
+        db.collection(K.FStore.collectionName).order(by: K.FStore.dateField).addSnapshotListener {
             (quarySnapthot, error) in
             if let e = error {
                 print("There was an issue retrieving data from firestore \(e)")
             } else {
-               if let snapshotDocuments = quarySnapthot?.documents {
+                self.messages.removeAll()
+                if let snapshotDocuments = quarySnapthot?.documents {
                     for doc in snapshotDocuments {
                         let data = doc.data()
                         if let sender = data[K.FStore.senderField] as? String,
@@ -54,7 +54,8 @@ class ChatViewController: UIViewController {
     @IBAction func sendPressed(_ sender: UIButton) {
         if let messageBody = messageTextfield.text, let sender = Auth.auth().currentUser?.email {
             db.collection(K.FStore.collectionName).addDocument(data: [K.FStore.senderField: sender,
-                                                                      K.FStore.bodyField: messageBody]) { (error) in
+                                                                      K.FStore.bodyField: messageBody,
+                                                                      K.FStore.dateField: Date().timeIntervalSince1970]) { (error) in
                 if let e = error {
                     print(e)
                 } else {
