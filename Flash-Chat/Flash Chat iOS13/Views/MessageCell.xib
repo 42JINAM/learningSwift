@@ -21,11 +21,18 @@
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1EC-y2-kWa">
                         <rect key="frame" x="10" y="10" width="297" height="50"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="YouAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="Sqw-Hk-42Z">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="9Th-lT-o4e"/>
+                                    <constraint firstAttribute="height" constant="40" id="AZQ-cQ-mZS"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEM-eO-Wcz">
-                                <rect key="frame" x="0.0" y="0.0" width="237" height="50"/>
+                                <rect key="frame" x="60" y="0.0" width="177" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMW-eM-ac1">
-                                        <rect key="frame" x="10" y="10" width="217" height="30"/>
+                                        <rect key="frame" x="10" y="10" width="157" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="BrandLightPurple"/>
                                         <nil key="highlightedColor"/>
@@ -39,11 +46,11 @@
                                     <constraint firstItem="WMW-eM-ac1" firstAttribute="top" secondItem="yEM-eO-Wcz" secondAttribute="top" constant="10" id="yf6-0D-r3K"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="Sqw-Hk-42Z">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="gvY-8N-W4W">
                                 <rect key="frame" x="257" y="0.0" width="40" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="9Th-lT-o4e"/>
-                                    <constraint firstAttribute="height" constant="40" id="AZQ-cQ-mZS"/>
+                                    <constraint firstAttribute="height" constant="40" id="XrC-h4-D9E"/>
+                                    <constraint firstAttribute="width" constant="40" id="z4S-bY-VQI"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -59,14 +66,16 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="label" destination="WMW-eM-ac1" id="SI1-Mt-wAV"/>
+                <outlet property="leftImageView" destination="Sqw-Hk-42Z" id="mdV-wu-3Gf"/>
                 <outlet property="messageBubble" destination="yEM-eO-Wcz" id="9ZN-Hw-tPs"/>
-                <outlet property="rightImageView" destination="Sqw-Hk-42Z" id="kn6-BI-WXQ"/>
+                <outlet property="rightImageView" destination="gvY-8N-W4W" id="Tie-bc-Loj"/>
             </connections>
             <point key="canvasLocation" x="129.00763358778624" y="-12.67605633802817"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="MeAvatar" width="36" height="36"/>
+        <image name="YouAvatar" width="36" height="36"/>
         <namedColor name="BrandLightPurple">
             <color red="0.98000001907348633" green="0.9649999737739563" blue="0.99599999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
