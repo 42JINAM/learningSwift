@@ -17,9 +17,11 @@ class RegisterViewController: UIViewController {
     
     @IBAction func registerPressed(_ sender: UIButton) {
         
-        passwordTextfield.textContentType = .oneTimeCode
+        passwordTextfield.textContentType = .none
         passwordTextfield.autocorrectionType = .no
         passwordTextfield.autocapitalizationType = .none
+        passwordTextfield.isSecureTextEntry = true
+
         if let email = emailTextfield.text, let password = passwordTextfield.text {
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 if let e = error {
