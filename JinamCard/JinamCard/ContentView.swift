@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack {
-            Color(red: 231/255.0, green: 76/255.0, blue: 60/255.0)
+            
+            Color(UIColor.appBackground)
                 .ignoresSafeArea(edges: .all)
             VStack {
                 Image("jinam")
@@ -22,9 +23,9 @@ struct ContentView: View {
                 Text("Jihee Nam")
                     .font(Font.custom("Pacifico-Regular", size:40))
                     .bold(true)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(UIColor.appText))
                 Text("iOS Developer")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(UIColor.appText))
                     .font(.system(size: 25))
                 InfoView(text: "+33 12 34 56", imageName: "phone.fill")
                 InfoView(text: "jinam@gmail.com", imageName: "envelope.fill")
