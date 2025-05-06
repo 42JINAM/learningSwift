@@ -8,12 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var networkManager = NetworkManager()
     var body: some View {
         NavigationView {
-            List(posts, rowContent: { post in
-                Text(post.title)
-            })
-            .navigationBarTitle("Hacker News")
+            List(networkManager.posts) { post in
+                if let title = post.title {
+                    HStack {
+                        Text(String(post.points))
+                        Text(title)
+                    }
+                }
+            }
+            .navigationBarTitle("HACKER NEWS")
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.networkManager.fetchData()
+            }
         }
     }
 }
@@ -22,13 +34,3 @@ struct ContentView: View {
     ContentView()
 }
 
-struct Post: Identifiable {
-    let id: String
-    let title: String
-}
-
-let posts = [
-    Post(id: "1", title: "Hello"),
-    Post(id: "2", title: "Bonjour"),
-    Post(id: "3", title: "Hola"),
-]
