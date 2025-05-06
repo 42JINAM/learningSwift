@@ -37,4 +37,8 @@ class NetworkManager: ObservableObject {
             task.resume()
         }
     }
+    func fetchInitialData() {
+        currentPage = 0
+        fetchData()
+    }
 }
