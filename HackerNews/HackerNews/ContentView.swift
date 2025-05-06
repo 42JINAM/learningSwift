@@ -10,22 +10,28 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var networkManager = NetworkManager()
+    
     var body: some View {
         NavigationView {
-            List(networkManager.posts) { post in
-                if let title = post.title {
-                    HStack {
-                        Text(String(post.points))
-                        Text(title)
+            List {
+                ForEach(networkManager.posts) { post in
+                    if let title = post.title { 
+                        HStack {
+                            Text(String(post.points))
+                            Text(title)
+                        }
+                        .onAppear {
+                            if let lastPost = self.networkManager.posts.last, post == lastPost {
+                                self.networkManager.fetchData()
+                            }
+                        }
                     }
                 }
             }
             .navigationBarTitle("HACKER NEWS")
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.networkManager.fetchData()
-            }
+            self.networkManager.fetchData()
         }
     }
 }

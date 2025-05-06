@@ -20,4 +20,8 @@ struct Post: Decodable, Identifiable{
     let points: Int
     let title: String?
     let url: String?
+    
+    static func ==(lhs: Post, rhs: Post) -> Bool {
+        return lhs.id == rhs.id // id 값을 기준으로 비교
+    }
 }

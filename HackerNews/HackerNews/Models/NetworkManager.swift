@@ -7,33 +7,34 @@
 
 import Foundation
 
-let mainUrl = "https://hn.algolia.com/api/v1/search?query="
+let mainUrl = "https://hn.algolia.com/api/v1/search?tags=front_page&page="
+
 class NetworkManager: ObservableObject {
     @Published var posts = [Post]()
+    private var currentPage = 0
+    
     func fetchData() {
-        guard let url = URL(string: mainUrl) else { return }
-
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Network request error: \(error.localizedDescription)")
-                return
-            }
-
-            if let data = data {
-                print("Raw response: ", String(data: data, encoding: .utf8) ?? "Invalid")
-                do {
-                    let results = try JSONDecoder().decode(Results.self, from: data)
-                    DispatchQueue.main.async {
-                        self.posts = results.hits
+        let urlString = mainUrl + "\(currentPage)"
+        
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error == nil {
+                    let decoder = JSONDecoder()
+                    if let safeData = data {
+                        do {
+                            let results = try decoder.decode(Results.self, from: safeData)
+                            DispatchQueue.main.async {
+                                self.posts.append(contentsOf: results.hits)
+                                self.currentPage += 1
+                            }
+                        } catch {
+                            print(error)
+                        }
                     }
-                } catch {
-                    print("Decoding error: \(error)")
                 }
             }
+            task.resume()
         }
-        task.resume()
     }
 }
