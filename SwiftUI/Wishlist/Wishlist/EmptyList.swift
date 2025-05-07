@@ -18,8 +18,9 @@ struct EmptyList: ViewModifier {
                     systemImage: "heart.circle",
                     description: Text("No whishes yet. Add one to get stted.")
                 )
+            } else {
+                EmptyView()
             }
-            
         }
     }
 }
