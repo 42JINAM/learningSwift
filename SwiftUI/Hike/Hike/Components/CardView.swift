@@ -11,7 +11,9 @@ struct CardView: View {
     //MARK: - Properties
     @State private var imageNumber: Int = 1
     @State private var randomNumber: Int = 1
-
+    @State private var isShowingSheet: Bool = false
+    
+    
     //MARK: - Functions
     
     func randomImage() {
@@ -20,7 +22,7 @@ struct CardView: View {
         } while imageNumber == randomNumber
         imageNumber = randomNumber
     }
-
+    
     var body: some View {
         ZStack {
             CustomBackgroundView()
@@ -42,9 +44,16 @@ struct CardView: View {
                         Spacer()
                         
                         Button {
-                           print("The button was pressed")
+                            print("The button was pressed")
+                            isShowingSheet.toggle()
+                            
                         } label: {
                             CustomButtonView()
+                        }
+                        .sheet(isPresented: $isShowingSheet) {
+                            SettingsView()
+                                .presentationDragIndicator(.visible)
+                                .presentationDetents([.medium, .large])
                         }
                     }
                     Text("Fun and enjoyable outdoor activity for friends and families")
@@ -80,7 +89,7 @@ struct CardView: View {
                         .shadow(color: .black.opacity(0.25), radius: 0.25, x: 1, y: 2)
                 }
                 .buttonStyle(GradientButton())
-
+                
             }
         } //: Card
         .frame(maxWidth: 320, maxHeight: 570)
