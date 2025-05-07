@@ -12,6 +12,7 @@ struct CardView: View {
     @State private var imageNumber: Int = 1
     @State private var randomNumber: Int = 1
     @State private var isShowingSheet: Bool = false
+    @State private var rotationAngle: Double = 0
     
     
     //MARK: - Functions
@@ -91,8 +92,21 @@ struct CardView: View {
                 .buttonStyle(GradientButton())
                 
             }
+
         } //: Card
         .frame(maxWidth: 320, maxHeight: 570)
+        .rotation3DEffect(
+            .degrees(rotationAngle),
+            axis: (x: 0, y: 1, z: 0),
+        )
+        .scaleEffect(x: abs(cos(rotationAngle * .pi / 180)), y: 1)
+        .opacity(Double(abs(cos(rotationAngle * .pi / 180))))
+
+        .onTapGesture {
+            withAnimation(.easeInOut(duration: 4)) {
+               rotationAngle -= 360
+            }
+        }
     }
 }
 
