@@ -27,7 +27,7 @@ struct ContentView: View {
     }
 }
 
-#Preview {
+#Preview("Empty List") {
     ContentView()
         .modelContainer(for: Wish.self, inMemory: true)
 }
