@@ -11,6 +11,8 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var wishes: [Wish]
+    @State private var isAlertShowing: Bool = false
+    @State private var title: String = ""
     var body: some View {
         NavigationStack {
             List {
@@ -18,9 +20,42 @@ struct ContentView: View {
                     Text(wish.title)
                         .font(.title.weight(.light))
                         .padding(.vertical, 2)
+                        .swipeActions {
+                            Button("Delete", role: .destructive) {
+                                modelContext.delete(wish)
+                            }
+                        }
                 }
             } //:List
             .navigationTitle(Text("Wishlist"))
+         
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isAlertShowing.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                            .imageScale(.large)
+                            .foregroundColor(.black)
+                            .fontWeight(.bold)
+                    }
+                 }
+                if wishes.isEmpty != true {
+                    ToolbarItem(placement: .bottomBar ) {
+                        Text("\(wishes.count) wish\(wishes.count == 1 ? "" : "es")")
+                    }
+                }
+            }
+            .alert("Create a ne wish", isPresented: $isAlertShowing){
+                TextField("Enter a wish", text: $title)
+                Button {
+                    if title.isEmpty { return }
+                    modelContext.insert(Wish(title: title))
+                    title = ""
+                } label: {
+                    Text("Save")
+                }
+            }
             .emptyListOverlay(wishes)
 
         }
