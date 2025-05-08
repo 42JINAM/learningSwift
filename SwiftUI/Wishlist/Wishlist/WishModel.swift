@@ -11,6 +11,7 @@ import SwiftData
 @Model
 class Wish {
     var title: String
+    var isCompleted: Bool = false
     
     init(title: String) {
         self.title = title

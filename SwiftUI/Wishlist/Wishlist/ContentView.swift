@@ -17,13 +17,22 @@ struct ContentView: View {
         NavigationStack {
             List {
                 ForEach(wishes) { wish in
+                    let iconName = wish.isCompleted ? "x.circle" : "checkmark.circle"
                     Text(wish.title)
                         .font(.title.weight(.light))
                         .padding(.vertical, 2)
+                        .foregroundStyle(wish.isCompleted == false ? Color.primary : Color.gray)
+                        .strikethrough(wish.isCompleted)
                         .swipeActions {
                             Button("Delete", role: .destructive) {
                                 modelContext.delete(wish)
                             }
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button("Done", systemImage: iconName) {
+                                wish.isCompleted.toggle()
+                            }
+                            .tint(wish.isCompleted ? .accentColor : .green)
                         }
                 }
             } //:List
@@ -46,7 +55,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .alert("Create a ne wish", isPresented: $isAlertShowing){
+            .alert("Create a new wish", isPresented: $isAlertShowing){
                 TextField("Enter a wish", text: $title)
                 Button {
                     if title.isEmpty { return }
