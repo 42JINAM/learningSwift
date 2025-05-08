@@ -7,12 +7,30 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     @State private var item: String = ""
     @FocusState private var isFocused: Bool
+    
+
+    let buttonTip = ButtonTip()
+    
+    func setUpTips() {
+        do {
+            try Tips.resetDatastore()
+            try Tips.configure([
+                .displayFrequency(.immediate)
+            ])
+        } catch {
+            print("Error resetting datastore: \(error)")
+        }
+    }
+    init() {
+        setUpTips()
+    }
     
     func addEssentialFood() {
         modelContext.insert(Item(title: "Bakery & Bread", isCompleted: false))
@@ -60,6 +78,7 @@ struct ContentView: View {
                         } label: {
                             Label("Essentials", systemImage: "carrot")
                         }
+                        .popoverTip(buttonTip)
                     }
                 }
             }
