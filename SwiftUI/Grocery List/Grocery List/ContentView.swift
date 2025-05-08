@@ -12,6 +12,12 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     
+    func addEssentialFood() {
+        modelContext.insert(Item(title: "Bakery & Bread", isCompleted: false))
+        modelContext.insert(Item(title: "Meat & Seafood", isCompleted: false))
+        modelContext.insert(Item(title: "Creal", isCompleted: false))
+        modelContext.insert(Item(title: "Pasta", isCompleted: false))
+    }
     var body: some View {
         NavigationStack {
             List {
@@ -27,6 +33,17 @@ struct ContentView: View {
                 }
             }
             .navigationTitle(Text("Grocery List"))
+            .toolbar {
+                if items.isEmpty {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            addEssentialFood()
+                        } label: {
+                            Label("Essentials", systemImage: "carrot")
+                        }
+                    }
+                }
+            }
             .overlay{
                 if items.isEmpty {
                     ContentUnavailableView(
