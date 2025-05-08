@@ -19,7 +19,7 @@ struct ContentView: View {
                 ForEach(wishes) { wish in
                     let iconName = wish.isCompleted ? "x.circle" : "checkmark.circle"
                     Text(wish.title)
-                        .font(.title.weight(.light))
+                        .font(.system(size: 15))
                         .padding(.vertical, 2)
                         .foregroundStyle(wish.isCompleted == false ? Color.primary : Color.gray)
                         .strikethrough(wish.isCompleted)
