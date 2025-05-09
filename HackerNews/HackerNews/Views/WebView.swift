@@ -11,8 +11,8 @@ import WebKit
 struct WebView: UIViewRepresentable {
     let urlString: String?
     
-    func makeUIView(context: Context) -> WebView.UIViewType {
-        WKWebView()
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
     }
     func updateUIView(_ uiView: WKWebView, context: Context) {
         if let safeString = urlString {

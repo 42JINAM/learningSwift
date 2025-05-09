@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query private var pets: [Pet]
     @State private var path = [Pet]()
+    @State private var isEditing: Bool = false
     
     func addPet(){
         let pet = Pet(name: "Best Friend")
