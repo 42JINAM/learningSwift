@@ -12,6 +12,11 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query private var pets: [Pet]
     
+    func addPet(){
+        let pet = Pet(name: "Best Friend")
+        modelContext.insert(pet)
+    }
+    
     let layout = [
         GridItem(.flexible(minimum: 120)),
         GridItem(.flexible(minimum: 120)),
@@ -59,6 +64,11 @@ struct ContentView: View {
                 .padding(.horizontal)
             } // scrollview
             .navigationTitle(pets.isEmpty ? "" : "Paws")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Add a New Pet", systemImage: "plus.circle", action: addPet)
+                }
+            }
             .overlay {
                 if pets.isEmpty {
                     CustomContentUnavailableView(
