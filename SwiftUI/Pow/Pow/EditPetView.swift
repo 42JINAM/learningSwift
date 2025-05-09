@@ -11,6 +11,7 @@ import PhotosUI
 
 struct EditPetView: View {
     
+    @Environment(\.dismiss) private var dismiss
     @Bindable var pet: Pet
     @State private var photosPickerItem: PhotosPickerItem?
     
@@ -50,7 +51,7 @@ struct EditPetView: View {
                 .padding(.vertical)
             //MARK: - button
             Button {
-                
+                dismiss()
             } label: {
                 Text("Save")
                     .font(.title3.weight(.medium))
@@ -60,6 +61,7 @@ struct EditPetView: View {
             .buttonStyle(.borderedProminent)
             .listRowSeparator(.hidden)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden()
             .onChange(of: photosPickerItem) {
                 Task {
                     pet.photo = try? await photosPickerItem?.loadTransferable(type: Data.self)

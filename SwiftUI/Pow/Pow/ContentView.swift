@@ -11,10 +11,12 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query private var pets: [Pet]
+    @State private var path = [Pet]()
     
     func addPet(){
         let pet = Pet(name: "Best Friend")
         modelContext.insert(pet)
+        path = [pet]
     }
     
     let layout = [
@@ -23,16 +25,24 @@ struct ContentView: View {
     ]
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ScrollView {
                 LazyVGrid(columns: layout) {
                     GridRow {
                         ForEach(pets) { pet in
-                            NavigationLink(destination: EmptyView()) {
+                            NavigationLink(value: pet) {
                                 VStack {
                                     if let imageData = pet.photo {
                                         if let image = UIImage(data: imageData) {
                                             Image(uiImage: image)
+                                                .resizable()
+                                                .scaledToFit()
+                                                .clipShape(
+                                                    RoundedRectangle(
+                                                        cornerRadius: 8,
+                                                        style: .circular
+                                                    )
+                                                )
                                         }
                                     } else {
                                         Image(systemName: "pawprint.circle")
@@ -64,6 +74,7 @@ struct ContentView: View {
                 .padding(.horizontal)
             } // scrollview
             .navigationTitle(pets.isEmpty ? "" : "Paws")
+            .navigationDestination(for: Pet.self, destination: EditPetView.init)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add a New Pet", systemImage: "plus.circle", action: addPet)
