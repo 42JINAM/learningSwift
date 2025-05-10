@@ -10,7 +10,7 @@ import UIKit
 
 struct Element : Identifiable{
     let id: UUID
-    let title: String
+    var title: String
     
     init(title: String) {
         self.title = title

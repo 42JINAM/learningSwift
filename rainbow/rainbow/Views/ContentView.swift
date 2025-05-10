@@ -25,7 +25,7 @@ struct ContentView: View {
                         Group {
                             if isEditing == false {
                                 NavigationLink {
-                                    ProjectView(project: $project)
+                                    ProjectView(project: project)
                                 } label: {
                                     Text(project.title)
                                         .font(.title)
@@ -63,12 +63,14 @@ struct ContentView: View {
                             isPresented.toggle()
                         } label: {
                             Image(systemName: "plus.circle")
+                                .foregroundColor(.black)
                         }
                     }
                     ToolbarItem(placement: .topBarLeading) {
                         Button(isEditing ? "Done" : "Edit") {
                             isEditing.toggle()
                         }
+                        .foregroundColor(.white)
                     }
                 }
                 .alert("new project", isPresented: $isPresented) {

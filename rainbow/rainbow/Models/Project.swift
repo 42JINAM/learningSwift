@@ -8,13 +8,14 @@
 import SwiftUI
 import Foundation
 
-struct Project: Identifiable{
+class Project: ObservableObject, Identifiable{
     let id: UUID
-    var title: String
-    var r: Double
-    var g: Double
-    var b: Double
-    var elements: [Element] = []
+    
+    @Published var title: String
+    @Published var r: Double
+    @Published var g: Double
+    @Published var b: Double
+    @Published var elements: [Element] = []
     
     func getMainColor() -> (r: Double, g: Double, b: Double) {
         return (r, g, b)
