@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct ProjectView: View {
-    let title: String
-    let mainColor: (r: Double, g: Double, b: Double)
+    @Binding var project: Project
+    
+    @State var isPresented: Bool = false
+    @State var newElement: String = ""
+    
     var body: some View {
-        Text("hello \(title)")
+        ZStack {
+           
+        }
+
+    }
+    func addElement() {
+        let newElement = Element(title: newElement)
+        project.elements.append(newElement)
+        isPresented.toggle()
     }
 }
 
-#Preview {
-    ProjectView(title: "shopping", mainColor: (0, 0, 0))
-}
+//#Preview {
+//    var project = Project(newTitle: "shopping")
+//    ProjectView(project: $project)
+//}
