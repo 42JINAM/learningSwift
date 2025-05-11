@@ -21,57 +21,58 @@ struct ProjectView: View {
     
     var body: some View {
         
-        ZStack {
-            Color(
-                red: project.r,
-                green: project.g,
-                blue: project.b
-            )
-            .ignoresSafeArea(edges: .all)
-            List {
-                ForEach($project.elements.indices, id: \.self) { idx in
-                    Group {
-                        if isEditing == false {
-                            Text(project.elements[idx].title)
-                        } else {
-                            TextField("Element type", text: $project.elements[idx].title)
+        NavigationStack {
+            ZStack {
+                Color(
+                    red: project.r,
+                    green: project.g,
+                    blue: project.b
+                )
+                .ignoresSafeArea(edges: .all)
+                List {
+                    ForEach($project.elements.indices, id: \.self) { idx in
+                        Group {
+                            if isEditing == false {
+                                Text(project.elements[idx].title)
+                            } else {
+                                TextField("Element type", text: $project.elements[idx].title)
+                            }
+                        }
+                        .listRowBackground(
+                            Color(
+                                red: max(0, project.r - Double(idx + 1) * 0.05),
+                                green: max(0, project.g - Double(idx + 1) * 0.05),
+                                blue: max(0, project.b - Double(idx + 1) * 0.05)
+                            )
+                        )
+                    }
+                    .onDelete(perform: deleteElement)
+                }
+                .scrollContentBackground(.hidden)
+                .navigationTitle(project.title)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isPresented.toggle()
+                        } label: {
+                            Image(systemName: "plus.circle")
+                                .foregroundStyle(.black)
                         }
                     }
-                    .listRowBackground(
-                        Color(
-                            red: max(0, project.r - Double(idx + 1) * 0.05),
-                            green: max(0, project.g - Double(idx + 1) * 0.05),
-                            blue: max(0, project.b - Double(idx + 1) * 0.05)
-                        )
-                    )
-                }
-                .onDelete(perform: deleteElement)
-            }
-            .scrollContentBackground(.hidden)
-            .navigationTitle(project.title)
-            .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        isPresented.toggle()
-                    } label: {
-                        Image(systemName: "plus.circle")
-                            .foregroundStyle(.black)
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button(isEditing ? "Done" : "Edit") {
+                            isEditing.toggle()
+                        }
+                        .foregroundColor(.black)
                     }
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(isEditing ? "Done" : "Edit") {
-                        isEditing.toggle()
-                    }
-                    .foregroundColor(.black)
+                .alert("new element", isPresented: $isPresented) {
+                    TextField("Enter a title", text: $newElement)
+                    Button("ADD", action: addElement)
+                        .disabled(newElement.isEmpty)
                 }
+                
             }
-            .alert("new element", isPresented: $isPresented) {
-                TextField("Enter a title", text: $newElement)
-                Button("ADD", action: addElement)
-                    .disabled(newElement.isEmpty)
-            }
-            
         }
     }
     func addElement() {
