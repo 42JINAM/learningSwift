@@ -1,0 +1,33 @@
+//
+//  Data.swift
+//  Landmarks
+//
+//  Created by Private on 12/05/2025.
+//
+
+import Foundation
+
+var landmarks: [Landmark] = load("landmarkData.json")
+
+func load<T: Decodable>(_ file: String) -> T {
+    
+    let data: Data
+    
+    guard let file = Bundle.main.url(forResource: file, withExtension: nil)
+    else {
+        fatalError("Couldn't find \(file) in main bundle")
+    }
+    
+    do {
+        data = try Data(contentsOf: file)
+    } catch {
+        fatalError("Could'nt load \(file) frome main bundle: \(error)")
+    }
+    
+    do {
+        let decoder = JSONDecoder()
+        return try decoder.decode(T.self, from: data)
+    } catch {
+        fatalError("Coudn't parse \(file) as \(T.self): \(error)")
+    }
+}
