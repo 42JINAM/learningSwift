@@ -1,3 +1,10 @@
 import UIKit
 
-var greeting = "Hello, playground"
+func test() -> String {
+    print("hello, world")
+    return "Hello, World!"
+}
+
+_ = test()
+
+
