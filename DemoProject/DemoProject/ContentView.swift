@@ -8,34 +8,57 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var fileopen: Bool = false
+    let carStack = HStack {
+        Text("Car Image")
+        Image(systemName: "car.fill")
+    }
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-                .font(.largeTitle)
-                .foregroundColor(.red)
-                .padding()
+            MyVStack {
+                Text("Text1")
+                    .padding()
+                    .border(Color.black)
+                Text("Text2")
+                    .modifier(StandardTitle())
+                    .padding()
+                MyHStackView()
+                Button(action: buttonPressed) {
+                    Text("Click me")
+                }
+            }
+            Text("Text5")
+            carStack
         }
-        .padding()
+        Label(
+            title: {
+                Text("Welcome to SwiftUI")
+                    .font(.largeTitle)
+            },
+            icon: {
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 25, height: 25)
+            }
+        )
+    }
+    func buttonPressed() {
+        print("hello")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ContentView()
-                .previewInterfaceOrientation(.landscapeRight)
-                .previewLayout(.device)
-                .previewDevice("iPad mini (A17 Pro)")
-                .previewDisplayName("iPad")
-            ContentView()
-                .preferredColorScheme(.dark)
-                .previewDevice("iPhone 16 Pro")
-                .previewDisplayName("iPhone")
+struct MyHStackView: View {
+    var body: some View {
+        HStack {
+            Text("Text3")
+            Text("Text4")
         }
     }
+}
+
+#Preview ("New Iphone"){
+    ContentView()
 }
 
 //#Preview {

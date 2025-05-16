@@ -7,8 +7,10 @@
 
 import SwiftUI
 
+// app
 @main
 struct DemoProjectApp: App {
+    // return scene
     var body: some Scene {
         WindowGroup {
             ContentView()
