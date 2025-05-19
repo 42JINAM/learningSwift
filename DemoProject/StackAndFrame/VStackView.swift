@@ -1,0 +1,22 @@
+//
+//  VStackView.swift
+//  DemoProject
+//
+//  Created by Private on 19/05/2025.
+//
+
+import SwiftUI
+
+struct VStackView: View {
+    var body: some View {
+        VStack {
+            Image(systemName: "goforward.10")
+            Image(systemName: "goforward.15")
+            Image(systemName: "goforward.30")
+        }
+    }
+}
+
+#Preview {
+    VStackView()
+}
