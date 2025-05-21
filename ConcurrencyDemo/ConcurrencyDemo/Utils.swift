@@ -8,6 +8,6 @@
 import Foundation
 
 func takesTooLong() async -> Date {
-    try? await Task.sleep(nanoseconds: 5_000_000_000)
+    try? await Task.sleep(nanoseconds: 5_000_000)
     return Date()
 }
