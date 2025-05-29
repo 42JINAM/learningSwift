@@ -63,7 +63,17 @@ struct EditableListView: View {
                     ToDoItem(task: "Sell the kids", imageName: "person.2.fill")
                 ]
             }
-            .navigationBarItems(trailing: EditButton())
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    EditButton()
+                    Button {
+                        let newItem = ToDoItem(task: "New Task \(listData.count + 1)", imageName: "plus.circle.fill")
+                        listData.append(newItem)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         }
     }
     func deleteItem(at offsets: IndexSet) {
